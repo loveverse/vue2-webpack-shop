@@ -8,4 +8,7 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {},
+  mounted() {
+    console.log(this);
+  },
 });
