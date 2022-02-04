@@ -11,10 +11,10 @@
 		<!-- 喜欢 -->
 		<Like/>
 		<!-- 楼层 -->
-		<!-- <Floor/> -->
+		<Floor/>
 		<!-- <Floor/> -->
 		<!-- 商标 -->
-		<!-- <Brand/> -->
+		<Brand/>
 	</div>
 </template>
 

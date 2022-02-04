@@ -6,7 +6,13 @@ const reqCategoryList = () => ajax('/product/getBaseCategoryList')
 
 const reqBannerList = () => mockAjax.get('/banner')
 
+const reqFloorList = () => mockAjax.get('/floor')
+
+const reqSearchInfo = (searchParams) => ajax('/list', searchParams, 'POST')
+
 export { 
   reqCategoryList,
-  reqBannerList
+  reqBannerList,
+  reqFloorList,
+  reqSearchInfo
 }

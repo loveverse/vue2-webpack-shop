@@ -145,6 +145,8 @@ export default {
       height: 461px;
       position: absolute;
       background: #fafafa;
+      border-top: 2px solid #e1251b;
+      box-sizing: border-box;
       z-index: 999;
 
       .all-sort-list2 {
@@ -159,6 +161,9 @@ export default {
 
             a {
               color: #333;
+            }
+            &:hover {
+              background-color: #a9e;
             }
           }
 
@@ -222,6 +227,7 @@ export default {
             }
           }
         }
+
       }
     }
   }

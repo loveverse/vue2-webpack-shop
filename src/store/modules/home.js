@@ -1,7 +1,8 @@
-import { reqCategoryList,reqBannerList } from '@/apis';
+import { reqCategoryList,reqBannerList,reqFloorList } from '@/apis';
 const state = {
   categoryListData: [],
-  bannerListData: []
+  bannerListData: [],
+  floorListData: []
 }
 
 const mutations = {
@@ -11,6 +12,10 @@ const mutations = {
   },
   SET_BANNERLISTDATA(state, data){
     state.bannerListData = data
+    // console.log(data);
+  },
+  SET_FLOORLISTDATA(state, data){
+    state.floorListData = data
     // console.log(data);
   }
 }
@@ -44,6 +49,15 @@ const actions = {
       commit('SET_BANNERLISTDATA', result.data)
       return 'ok'
     }else {
+      return Promise.reject(new Error('failed'))
+    }
+  },
+  async getFloorListData({commit}){
+    const result = await reqFloorList()
+    if(result.code === 200){
+      commit('SET_FLOORLISTDATA', result.data)
+      return 'ok'
+    }else{ 
       return Promise.reject(new Error('failed'))
     }
   }
