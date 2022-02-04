@@ -159,7 +159,7 @@
 						overflow: hidden;
 						margin: 0 12px 10px;
 						background: #fff;
-
+						box-sizing: border-box;
 						.tab-pic {
 							width: 230px;
 							height: 210px;

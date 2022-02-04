@@ -11,7 +11,7 @@
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
-          <router-view></router-view>
+          <!-- <router-view></router-view> -->
         </div>
         <div class="typeList">
           <a href="###">我的订单</a>
@@ -40,11 +40,9 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="keywords"
           />
-          <button
-            class="sui-btn btn-xlarge btn-danger"
-            type="button"
-          >
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="btnSearch">
             搜索
           </button>
         </form>
@@ -54,10 +52,24 @@
 </template>
 
 <script>
-
 export default {
   name: "Header",
+  data(){
+    return {
+      keywords: ''
+    }
+  },
+  methods: {
+    btnSearch(){
+      this.$router.push({
+        name: 'search',
+        query: {
+          keywords: this.keywords || undefined
+        }
+      })
+    }
   }
+};
 </script>
 
 <style lang="less" scoped>

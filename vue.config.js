@@ -5,12 +5,11 @@ module.exports = {
             '/api': {
                 target: 'http://39.98.123.211',
                 changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''
-                }
+                // pathRewrite: {
+                //     '^/api': ''
+                // }
             },
         }
-
-
-    }
+    },
+    lintOnSave: false
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="outer">
 		<!-- 三级分类导航 -->
-		<TypeNav />
+		<!-- <TypeNav /> -->
 		<div class="main">
 			<div class="py-container">
 				<!--面包屑导航-->
