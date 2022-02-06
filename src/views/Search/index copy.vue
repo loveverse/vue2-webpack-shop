@@ -44,17 +44,11 @@
             <div class="navbar-inner filter">
               <ul class="sui-nav">
                 <!-- 这里需要传一个字符串，后面切割出来是个字符 -->
-                <li :class="{active: isMark}" @click="handlerOrder('1')">
-                  <a href="javascript:void(0);"
-                    >综合<span>{{
-                      flagSynthesize ? "⬆" : "⬇"
-                    }}</span></a
-                  >
+                <li class="" @click="handlerOrder('1')">
+                  <a href="javascript:void(0);">综合<span>{{upAndDown? "⬆":"⬇"}}</span></a>
                 </li>
-                <li :class="{active: !isMark}" @click="handlerOrder('2')">
-                  <a href="javascript:void(0);"
-                    >价格<span>{{ flagPrice ? "⬆" : "⬇" }}</span></a
-                  >
+                <li class="" @click="handlerOrder('2')">
+                  <a href="javascript:void(0);">价格<span>{{upAndDown? "⬆":"⬇"}}</span></a>
                 </li>
               </ul>
             </div>
@@ -98,13 +92,7 @@
             </ul>
           </div>
           <!-- 分页器: 总条数、当前页、每页展示数、连贯页 -->
-          <Pagination
-            :total="searchInfo.total"
-            :pageNo="searchParams.pageNo"
-            :pageSize="searchParams.pageSize"
-            :coherent="5"
-            @changePageNo="changePageNo"
-          ></Pagination>
+          <Pagination :total="searchInfo.total" :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :coherent="5" @changePageNo="changePageNo"></Pagination>
         </div>
       </div>
     </div>
@@ -127,25 +115,11 @@ export default {
       const { trademark } = this.searchParams;
       return trademark ? trademark.split(":")[1] : "";
     },
-    isMark(){
-      return this.searchParams.order.split(":")[0] === '1'
+    upAndDown(){
+      //1: 综合,2: 价格 asc: 升序,desc: 降序
+      
+      return this.searchParams.order.split(":")[1] === "asc"
     }
-    // upAndDown() {
-    //   //1: 综合,2: 价格 asc: 升序,desc: 降序
-    //   let type = this.searchParams.order.split(":")[0];
-    //   // 综合排序
-    //   if (type == 1) {
-    //     this.searchParams.order.split(":")[1] === "asc"
-    //       ? (this.flagSynthesize = true)
-    //       : (this.flagSynthesize = false);
-    //   } else {
-    //     // 价格排序
-    //     this.searchParams.order.split(":")[1] === "asc"
-    //       ? (this.flagPrice = true)
-    //       : (this.flagPrice = false);
-    //   }
-    //   return { flagSynthesize: this.flagSynthesize, flagPrice: this.flagPrice };
-    // },
   },
   filters: {
     formatPropName(rawPropName) {
@@ -175,12 +149,8 @@ export default {
         pageNo: 1, // 当前页
         pageSize: 5, // 一页显示数
       },
-      synthesize: true, //综合
+      synthesize: true,
       price: true,
-
-      //记录点击的是哪一个
-      flagSynthesize: true, //升序
-      flagPrice: true,
     };
   },
   methods: {
@@ -246,34 +216,30 @@ export default {
       this.getSearchInfo(this.searchParams);
     },
     // 点击的是综合还是价格
-    handlerOrder(num) {
-      let [oldNum, oldType] = this.searchParams.order.split(":");
+    handlerOrder(num){
+      let [oldNum, oldType] = this.searchParams.order.split(":")
       // 默认是在综合升序
-      if (oldNum === num) {
-        this.price = false;
-        if (this.synthesize) {
-          this.searchParams.order = `${oldNum}:${
-            oldType === "asc" ? "desc" : "asc"
-          }`;
-        } else {
-          this.searchParams.order = `${oldNum}:${oldType}`;
+      if(oldNum === num){
+        this.price = false
+        if(this.synthesize){
+          this.searchParams.order = `${oldNum}:${oldType === "asc"? "desc": "asc"}`
+        }else{
+          this.searchParams.order = `${oldNum}:${oldType}`
         }
-        this.price = true;
-      } else {
+        this.price = true
+      }else{
         // 点第一次过来，直接升序排序，点第二次为降序
-        this.synthesize = false;
-        if (this.price) {
-          this.searchParams.order = `${num}:${
-            oldType === "asc" ? "desc" : "asc"
-          }`;
-        } else {
-          this.searchParams.order = `${num}:${oldType}`;
+        this.synthesize = false
+        if(this.price){
+          this.searchParams.order = `${num}:${oldType === "asc"? "desc": "asc"}`
+        }else{
+          this.searchParams.order = `${num}:${oldType}`
         }
-        this.synthesize = true;
+        this.synthesize = true
       }
-      // console.log(this.searchParams.order);
-      this.getSearchInfo(this.searchParams);
-    },
+      console.log(this.searchParams.order);
+      this.getSearchInfo(this.searchParams)
+    }
   },
   watch: {
     $route: {
@@ -293,20 +259,6 @@ export default {
 
         this.getSearchInfo(this.searchParams);
       },
-    },
-
-    // 监视排序的变化
-    ["searchParams.order"](newval, oldval) {
-      let [oldNum, oldType] = newval.split(":");
-        console.log(newval);
-      if (oldNum == 1) {
-        //综合
-        this.flagSynthesize = oldType === "asc";
-        // this.flagSynthesize=!this.flagSynthesize
-      } else {
-        //价格
-        this.flagPrice = oldType === "asc";
-      }
     },
   },
 };

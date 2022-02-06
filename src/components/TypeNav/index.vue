@@ -2,8 +2,8 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div class="nav-left" @mouseleave="handlerTypeNav(false)">
-        <h2 class="all" @mouseenter="handlerTypeNav(true)">全部商品分类</h2>
+      <div class="nav-left" @mouseleave="handlerTypeNav(false)" @mouseenter="handlerTypeNav(true)">
+        <h2 class="all">全部商品分类</h2>
         <div class="sort" v-show="isShowNav">
           <div class="all-sort-list2" @click="btnSearch">
             <div
@@ -72,9 +72,6 @@ export default {
   computed: {
     ...mapState("home", ["categoryListData"]),
   },
-  mounted() {
-    
-  },
   methods: {
     btnSearch(event) {
       let { id1, id2, id3, name} = event.target.dataset
@@ -90,7 +87,7 @@ export default {
 
         // 判断之前有没有params参数，合并参数
         location.params = this.$route.params
-        console.log(location);
+        // console.log(location);
         this.$router.push(location)
       }
     },
@@ -103,6 +100,12 @@ export default {
       }
     },
   },
+  mounted(){
+    // 页面是search就直接隐藏
+    if(!this.$route.meta.isShowTypeNav){
+      this.isShowNav = false
+    }
+  }
 };
 </script>
 
@@ -148,6 +151,7 @@ export default {
       border-top: 2px solid #e1251b;
       box-sizing: border-box;
       z-index: 999;
+      cursor: pointer;
 
       .all-sort-list2 {
         .item {

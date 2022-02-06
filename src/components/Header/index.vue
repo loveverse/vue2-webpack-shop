@@ -40,7 +40,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="keywords"
+            v-model="keyword"
           />
           <button class="sui-btn btn-xlarge btn-danger" type="button" @click="btnSearch">
             搜索
@@ -56,7 +56,7 @@ export default {
   name: "Header",
   data(){
     return {
-      keywords: ''
+      keyword: ''
     }
   },
   methods: {
@@ -64,10 +64,16 @@ export default {
       this.$router.push({
         name: 'search',
         query: {
-          keywords: this.keywords || undefined
+          keyword: this.keyword || undefined
         }
       })
     }
+  },
+  mounted(){
+    this.$bus.$on("delKeyword", () => this.keyword = "")
+  },
+  beforeDestroy(){
+    this.$bus.$off("delKeyword")
   }
 };
 </script>

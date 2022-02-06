@@ -31,3 +31,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   - 根据路由元控制typeNav显示
   - 使用mockjs模拟请求banner和floor数据，拦截ajax请求
   - 使用swiper实现轮播，封装swiper成共用组件复用
+  - 封装分页器完成
+  - 点击综合和价格排序完成
