@@ -1,28 +1,9 @@
 # vue2-webpack-shop
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 
 ### 完成功能
   - 静态页面的搭建，项目环境配置
@@ -33,3 +14,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   - 使用swiper实现轮播，封装swiper成共用组件复用
   - 封装分页器完成
   - 点击综合和价格排序完成
+  - 详情页的动态数据渲染，放大镜效果，底下轮播图滑动，购物车数量的限制

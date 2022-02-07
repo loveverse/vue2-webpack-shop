@@ -44,14 +44,12 @@
             <div class="navbar-inner filter">
               <ul class="sui-nav">
                 <!-- 这里需要传一个字符串，后面切割出来是个字符 -->
-                <li :class="{active: isMark}" @click="handlerOrder('1')">
+                <li :class="{ active: isMark }" @click="handlerOrder('1')">
                   <a href="javascript:void(0);"
-                    >综合<span>{{
-                      flagSynthesize ? "⬆" : "⬇"
-                    }}</span></a
+                    >综合<span>{{ flagSynthesize ? "⬆" : "⬇" }}</span></a
                   >
                 </li>
-                <li :class="{active: !isMark}" @click="handlerOrder('2')">
+                <li :class="{ active: !isMark }" @click="handlerOrder('2')">
                   <a href="javascript:void(0);"
                     >价格<span>{{ flagPrice ? "⬆" : "⬇" }}</span></a
                   >
@@ -65,9 +63,9 @@
               <li class="yui3-u-1-5" v-for="item in goodList" :key="item.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="javascript:void(0);"
+                    <router-link :to="'/detail/' + item.id"
                       ><img :src="item.defaultImg"
-                    /></a>
+                    /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -76,9 +74,11 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a href="javascript:void(0);" :title="item.title">{{
-                      item.title
-                    }}</a>
+                    <router-link
+                      :to="`detail/${item.id}`"
+                      :title="item.title"
+                      >{{ item.title }}</router-link
+                    >
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
@@ -127,9 +127,9 @@ export default {
       const { trademark } = this.searchParams;
       return trademark ? trademark.split(":")[1] : "";
     },
-    isMark(){
-      return this.searchParams.order.split(":")[0] === '1'
-    }
+    isMark() {
+      return this.searchParams.order.split(":")[0] === "1";
+    },
     // upAndDown() {
     //   //1: 综合,2: 价格 asc: 升序,desc: 降序
     //   let type = this.searchParams.order.split(":")[0];
@@ -298,7 +298,8 @@ export default {
     // 监视排序的变化
     ["searchParams.order"](newval, oldval) {
       let [oldNum, oldType] = newval.split(":");
-        console.log(newval);
+      let [oldNum2, oldType2] = oldval.split(":");
+      if (oldNum !== oldNum2) return;
       if (oldNum == 1) {
         //综合
         this.flagSynthesize = oldType === "asc";

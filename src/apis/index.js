@@ -10,9 +10,17 @@ const reqFloorList = () => mockAjax.get('/floor')
 
 const reqSearchInfo = (searchParams) => ajax('/list', searchParams, 'POST')
 
+const reqDetailInfo = (id) => ajax('/item/' + id)
+
+const reqAddOrUpdateCart = (skuId, skuNum) => ajax(`/cart/addToCart/${skuId}/${skuNum}`)
+
+
+
 export { 
   reqCategoryList,
   reqBannerList,
   reqFloorList,
-  reqSearchInfo
+  reqSearchInfo,
+  reqDetailInfo,
+  reqAddOrUpdateCart
 }

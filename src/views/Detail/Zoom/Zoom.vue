@@ -1,17 +1,55 @@
 <template>
   <div class="spec-preview">
-    <img src="../images/s1.png" />
-    <div class="event"></div>
+    <img ref="imgSmall" :src="skuInfo.skuDefaultImg" />
+    <!-- 小图添加一个事件 -->
+    <div class="event" @mousemove="move"></div>
     <div class="big">
-      <img src="../images/s1.png" />
+      <img ref="imgBig" :src="skuInfo.skuDefaultImg" :style="{left: -2 * left + 'px', top: -2 * top + 'px'}" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" :style="{left: left + 'px', top: top + 'px'}"></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
   export default {
     name: "Zoom",
+    computed: {
+      ...mapGetters(["skuInfo"])
+    },
+    data(){
+      return {
+        left: 0,
+        top: 0
+      }
+    },
+    methods: {
+      move(event){
+        let x = event.offsetX - 100
+        if(x < 0) x = 0
+        if(x > 200) x = 200
+        let y = event.offsetY - 100
+        if(y < 0) y = 0
+        if(y > 200) y = 200
+        this.left = x
+        this.top = y
+      }
+    },
+    mounted(){
+      // 接收兄弟组件传过来的数据（监听事件变化）
+      this.$bus.$on('getImg', imgUrl => {
+        // this.$nextTick(() => {
+          // if(this.$refs.imgSmall){
+            this.$refs.imgSmall.src = imgUrl
+            this.$refs.imgBig.src = imgUrl
+          // }
+        // })
+      })
+    },
+    // 组件销毁时移除事件
+    beforeDestroy(){
+      this.$bus.$off('getImg')
+    }
   }
 </script>
 

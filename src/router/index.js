@@ -42,6 +42,8 @@ VueRouter.prototype.replace = function (location, okCallBack, errCallBack) {
 // 解决方法：https://blog.csdn.net/suixaingjun/article/details/88798829
 import Home from '@/views/Home/index.vue';
 import Search from '@/views/Search/index.vue';
+import Detail from '@/views/Detail/index.vue';
+import AddCartSuccess from '@/views/AddCartSuccess/index.vue';
 
 
 const routes = [
@@ -50,13 +52,24 @@ const routes = [
   { path: "/register", component: import('@/views/Register/index.vue'), name: "register", meta: { isHiddenFooter: true } },
   // { path: "/home", component: import('@/views/Home/index.vue'), name: "home" },
   { path: "/home", component: Home, name: "home", meta: {isShowTypeNav: true} },
-  { path: "/search", component: Search, name: 'search'}
+  { path: "/search", component: Search, name: 'search'},
+  // props:会将之前传入的params参数用props接收
+  {path: "/detail/:id", component: Detail, name: "detail", props: true},
+  {path: "/addcartsuccess", component: AddCartSuccess, name: "addcartsuccess"}
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+  // 让页面滚动到顶部
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 });
 
 export default router;
